@@ -1,0 +1,80 @@
+import random
+from art import logo
+from art import vs
+import game_data
+from replit import clear
+print(logo)
+
+
+user_score = 0
+game_continue = 'y'
+
+
+# pull random 'A'
+a_list_position = random.randint(0, 49)
+a_name = game_data.data[a_list_position]['name']
+a_what = game_data.data[a_list_position]['description']
+a_where = game_data.data[a_list_position]['country']
+a_followers = game_data.data[a_list_position]['follower_count']
+
+# pull random 'B'
+b_list_position = random.randint(0, 49)
+while b_list_position == a_list_position:
+  b_list_position = random.randint(0, 49)
+b_name = game_data.data[b_list_position]['name']
+b_what = game_data.data[b_list_position]['description']
+b_where = game_data.data[b_list_position]['country']
+b_followers = game_data.data[b_list_position]['follower_count']
+
+if a_followers > b_followers:
+  winner = 'a'
+else:
+  winner = 'b'
+
+#Now that the backend stuff is done and the starting choices are picked, the game starts
+
+print(f"Compare A: {a_name}, a {a_what}, from {a_where}")
+print(vs)
+print(f"Against B: {b_name}, a {b_what}, from {b_where}")
+choice = input("Who has more Instagram followers? Type 'A' or 'B': ").lower()
+if choice == winner:
+  clear()
+  print(logo)
+  user_score += 1
+  print(f'Correct! Current Score: {user_score}')
+else:
+  clear()
+  print(logo)
+  print(f'You lose! Final Score: {user_score}')
+  game_continue = 'n'
+
+while game_continue == 'y':
+  #switch the 'b' to the 'a' spot
+  a_name = b_name 
+  a_what = b_what
+  a_where = b_where
+  a_followers = a_followers
+
+  #get a new 'b'
+  b_list_position = random.randint(0, 49)
+  while b_list_position == a_list_position:
+    b_list_position = random.randint(0, 49)
+  b_name = game_data.data[b_list_position]['name']
+  b_what = game_data.data[b_list_position]['description']
+  b_where = game_data.data[b_list_position]['country']
+  b_followers = game_data.data[b_list_position]['follower_count']
+
+  print(f"Compare A: {a_name}, a {a_what}, from {a_where}")
+  print(vs)
+  print(f"Against B: {b_name}, a {b_what}, from {b_where}")
+  choice = input("Who has more Instagram followers? Type 'A' or 'B': ").lower()
+  if choice == winner:
+    clear()
+    print(logo)
+    user_score += 1
+    print(f'Correct! Current Score: {user_score}')
+  else:
+    clear()
+    game_continue = 'n'
+    print(logo)
+    print(f'You lose! Final Score: {user_score}')
